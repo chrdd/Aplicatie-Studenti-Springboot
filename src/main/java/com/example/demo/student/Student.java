@@ -1,8 +1,8 @@
 package com.example.demo.student;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table
@@ -17,6 +17,7 @@ public class Student {
             generator = "student_sequence")
     private Long id;
     private String name;
+    @Transient
     private Integer age;
     private String description;
     private LocalDate date;
@@ -25,18 +26,16 @@ public class Student {
     public Student() {
     }
 
-    public Student(Long id, String name, Integer age, String description, LocalDate date, String email) {
+    public Student(Long id, String name, String description, LocalDate date, String email) {
         this.id = id;
         this.name = name;
-        this.age = age;
         this.description = description;
         this.date = date;
         this.email = email;
     }
 
-    public Student(String name, Integer age, String description, LocalDate date, String email) {
+    public Student(String name, String description, LocalDate date, String email) {
         this.name = name;
-        this.age = age;
         this.description = description;
         this.date = date;
         this.email = email;
@@ -59,7 +58,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(this.date, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
