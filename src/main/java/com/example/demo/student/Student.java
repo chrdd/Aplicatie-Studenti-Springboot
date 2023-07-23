@@ -1,12 +1,14 @@
 package com.example.demo.student;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
 @Table
-public class Student {
+public class Student implements Serializable {
     @Id
     @SequenceGenerator(
             name = "student_sequence",
@@ -15,6 +17,7 @@ public class Student {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence")
+    @Column(nullable = false, updatable = false)
     private Long id;
     private String name;
     @Transient
